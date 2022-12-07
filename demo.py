@@ -13,6 +13,7 @@ sites = [
     "http://www.example.com",
     "http://www.princeton.edu",
     "http://citp.princeton.edu/",
+    
 ]
 
 # Loads the default ManagerParams
