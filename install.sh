@@ -40,3 +40,7 @@ echo 'Building extension.'
 
 echo 'Installation complete, activate your new environment by running:'
 echo 'conda activate openwpm'
+
+
+# additionally installed for EC2 virtual instance:
+# pyvirtualdisplay, xvfb, gtk3-module
