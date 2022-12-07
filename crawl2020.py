@@ -2,6 +2,8 @@ import pandas as pd
 import numpy as np
 from pathlib import Path
 
+from pyvirtualdisplay import Display
+
 from custom_command import LinkCountingCommand
 from openwpm.command_sequence import CommandSequence
 from openwpm.commands.browser_commands import GetCommand
@@ -10,13 +12,15 @@ from openwpm.storage.sql_provider import SQLiteStorageProvider
 from openwpm.task_manager import TaskManager
 
 # The list of sites that we wish to crawl
-NUM_BROWSERS = 1
-
-
+NUM_BROWSERS = 5
 df = pd.read_csv('top-1m_cut.csv')
 
 # Array of lists to crawl
 sites = df.values.ravel()
+
+#start display for headless crawl on EC2
+display = Display(visible=0, size=(800, 600))
+display.start()
 
 # Loads the default ManagerParams
 # and NUM_BROWSERS copies of the default BrowserParams
