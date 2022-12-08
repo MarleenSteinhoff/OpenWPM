@@ -81,6 +81,7 @@ def deploy_firefox(
     if display_mode == "xvfb":
         try:
             display = Display(visible=False, size=DEFAULT_SCREEN_RES)
+    
             display.start()
             display_pid, display_port = display.pid, display.display
         except EasyProcessError:

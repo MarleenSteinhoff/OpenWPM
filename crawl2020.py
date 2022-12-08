@@ -14,10 +14,11 @@ from openwpm.task_manager import TaskManager
 # The list of sites that we wish to crawl
 NUM_BROWSERS = 5
 df = pd.read_csv('top-1m_cut.csv')
+df.iloc[:,0] = 'http://' + df.iloc[:,0].astype(str)
 
 # Array of lists to crawl
 sites = df.values.ravel()
-
+print(sites)
 #start display for headless crawl on EC2
 # display = Display(visible=0, size=(800, 600))
 # display.start()
