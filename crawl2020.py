@@ -19,8 +19,8 @@ df = pd.read_csv('top-1m_cut.csv')
 sites = df.values.ravel()
 
 #start display for headless crawl on EC2
-display = Display(visible=0, size=(800, 600))
-display.start()
+# display = Display(visible=0, size=(800, 600))
+# display.start()
 
 # Loads the default ManagerParams
 # and NUM_BROWSERS copies of the default BrowserParams
