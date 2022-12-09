@@ -2,6 +2,8 @@ import pandas as pd
 import numpy as np
 from pathlib import Path
 
+## fuer 09.12.: clear Profile auf TRUE setzen?
+
 from pyvirtualdisplay import Display
 
 from custom_command import LinkCountingCommand
@@ -17,8 +19,8 @@ df = pd.read_csv('top-1m_cut.csv')
 df.iloc[:,0] = 'http://' + df.iloc[:,0].astype(str)
 
 # Array of lists to crawl
-sites = df.values.ravel()
-print(sites)
+sites = ['http://dzen.ru ', 'http://office.com', 'http://github.com', 'http://baidu.com']
+
 #start display for headless crawl on EC2
 # display = Display(visible=0, size=(800, 600))
 # display.start()
@@ -26,7 +28,6 @@ print(sites)
 # Loads the default ManagerParams
 # and NUM_BROWSERS copies of the default BrowserParams
 
-manager_params = ManagerParams(num_browsers=NUM_BROWSERS, data_directory=".")
 browser_params = [BrowserParams(display_mode="xvfb") for _ in range(NUM_BROWSERS)]
 
 # Update browser configuration (use this for per-browser settings)

@@ -18,7 +18,7 @@ df.iloc[:,0] = 'http://' + df.iloc[:,0].astype(str)
 
 # Array of lists to crawl
 sites = df.values.ravel()
-print(sites)
+
 #start display for headless crawl on EC2
 # display = Display(visible=0, size=(800, 600))
 # display.start()
@@ -26,7 +26,6 @@ print(sites)
 # Loads the default ManagerParams
 # and NUM_BROWSERS copies of the default BrowserParams
 
-manager_params = ManagerParams(num_browsers=NUM_BROWSERS, data_directory=".")
 browser_params = [BrowserParams(display_mode="xvfb") for _ in range(NUM_BROWSERS)]
 
 # Update browser configuration (use this for per-browser settings)
@@ -76,7 +75,7 @@ with TaskManager(
         command_sequence = CommandSequence(
             site,
             site_rank=index,
-            callback=callback,
+            callback=callback, reset=True
         )
 
         # Start by visiting the page
