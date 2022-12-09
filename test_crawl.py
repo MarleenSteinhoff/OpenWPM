@@ -27,7 +27,7 @@ sites = ['http://dzen.ru ', 'http://office.com', 'http://github.com', 'http://ba
 
 # Loads the default ManagerParams
 # and NUM_BROWSERS copies of the default BrowserParams
-
+manager_params = ManagerParams(num_browsers=NUM_BROWSERS)
 browser_params = [BrowserParams(display_mode="xvfb") for _ in range(NUM_BROWSERS)]
 
 # Update browser configuration (use this for per-browser settings)
@@ -49,7 +49,8 @@ for browser_param in browser_params:
     #DISPLAY_MODE_VALIDATION_LIST = ["native", "headless", "xvfb"]
 
 # Update TaskManager configuration (use this for crawl-wide settings)
-manager_params.data_directory = Path("./datadir/")
+# manager_params.data_directory = Path("./datadir/")
+manager_params.data_directory = Path('https://s3.amazonaws.com/arn:aws:s3:::crawldataopenwpm')
 manager_params.log_path = Path("./datadir/openwpm.log")
 
 # memory_watchdog and process_watchdog are useful for large scale cloud crawls.
