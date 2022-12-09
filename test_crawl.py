@@ -12,6 +12,7 @@ from openwpm.commands.browser_commands import GetCommand
 from openwpm.config import BrowserParams, ManagerParams
 from openwpm.storage.sql_provider import SQLiteStorageProvider
 from openwpm.task_manager import TaskManager
+from openwpm.storage.cloud_storage.s3_storage import S3StructuredProvider, S3UnstructuredProvider
 
 # The list of sites that we wish to crawl
 NUM_BROWSERS = 5
@@ -48,9 +49,13 @@ for browser_param in browser_params:
     browser_param.display_mode = "xvfb"
     #DISPLAY_MODE_VALIDATION_LIST = ["native", "headless", "xvfb"]
 
+
+
+s3 = S3StructuredProvider(str('crawldataopenwpm'), str('arn:aws:s3:::crawldataopenwpm'))
 # Update TaskManager configuration (use this for crawl-wide settings)
 # manager_params.data_directory = Path("./datadir/")
 manager_params.data_directory = Path('https://s3.amazonaws.com/arn:aws:s3:::crawldataopenwpm')
+
 manager_params.log_path = Path("./datadir/openwpm.log")
 
 # memory_watchdog and process_watchdog are useful for large scale cloud crawls.
@@ -88,3 +93,4 @@ with TaskManager(
 
         # Run commands across all browsers (simple parallelization)
         manager.execute_command_sequence(command_sequence)
+        print(s3.ls('crawldataopenwpm'))
