@@ -50,13 +50,10 @@ for browser_param in browser_params:
     #DISPLAY_MODE_VALIDATION_LIST = ["native", "headless", "xvfb"]
 
 
-
-s3 = S3StructuredProvider(str('crawldataopenwpm'), str('arn:aws:s3:::crawldataopenwpm'))
 # Update TaskManager configuration (use this for crawl-wide settings)
-# manager_params.data_directory = Path("./datadir/")
-manager_params.data_directory = Path('https://s3.amazonaws.com/arn:aws:s3:::crawldataopenwpm')
+manager_params.data_directory = Path("/data/")
 
-manager_params.log_path = Path("./datadir/openwpm.log")
+manager_params.log_path = Path("/data/openwpm.log")
 
 # memory_watchdog and process_watchdog are useful for large scale cloud crawls.
 # Please refer to docs/Configuration.md#platform-configuration-options for more information
