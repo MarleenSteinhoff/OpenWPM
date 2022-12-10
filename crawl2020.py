@@ -20,6 +20,7 @@ df.iloc[:,0] = 'http://' + df.iloc[:,0].astype(str)
 
 # Array of lists to crawl
 sites = df.values.ravel()
+no_sites = len(sites)
 
 #start display for headless crawl on EC2
 # display = Display(visible=0, size=(800, 600))
@@ -72,6 +73,7 @@ with TaskManager(
         def callback(success: bool, val: str = site) -> None:
             print(
                 f"CommandSequence for {val} ran {'successfully' if success else 'unsuccessfully'}"
+                f"Site no. " {index} "/ " {no_sites}
             )
 
         # Parallelize sites over all number of browsers set above.
