@@ -46,8 +46,6 @@ for browser_param in browser_params:
     # Record DNS resolution
     browser_param.dns_instrument = True
 
-    browser_param.display_mode = "xvfb"
-    #DISPLAY_MODE_VALIDATION_LIST = ["native", "headless", "xvfb"]
 
 # Update TaskManager configuration (use this for crawl-wide settings)
 manager_params.data_directory = Path("/data/")
@@ -56,8 +54,8 @@ manager_params.log_path = Path("/data/openwpm.log")
 
 # memory_watchdog and process_watchdog are useful for large scale cloud crawls.
 # Please refer to docs/Configuration.md#platform-configuration-options for more information
-# manager_params.memory_watchdog = True
-# manager_params.process_watchdog = True
+manager_params.memory_watchdog = True
+manager_params.process_watchdog = True
 
 
 # Commands time out by default after 60 seconds
@@ -73,15 +71,15 @@ with TaskManager(
         def callback(success: bool, val: str = site) -> None:
             print(
                 f"CommandSequence for {val} ran {'successfully' if success else 'unsuccessfully'}"
-                f"Site no. " {index} "/ " {no_sites}
             )
 
+         
         # Parallelize sites over all number of browsers set above.
         command_sequence = CommandSequence(
             site,
             site_rank=index,
-            callback=callback, 
-            reset=True
+            callback=callback
+            # reset=True
         )
 
         # Start by visiting the page
