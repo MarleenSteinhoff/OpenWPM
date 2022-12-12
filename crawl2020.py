@@ -78,7 +78,7 @@ with TaskManager(
         command_sequence = CommandSequence(
             site,
             site_rank=index,
-            callback=callback
+            callback=callback,
             reset=True
         )
 
