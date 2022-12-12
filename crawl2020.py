@@ -14,8 +14,8 @@ from openwpm.storage.cloud_storage.s3_storage import S3StructuredProvider, S3Uns
 
 
 # The list of sites that we wish to crawl
-NUM_BROWSERS = 5
-df = pd.read_csv('top-1m_cut.csv')
+NUM_BROWSERS = 12
+df = pd.read_csv('top-1m-11-11-2016.csv')
 df.iloc[:,0] = 'http://' + df.iloc[:,0].astype(str)
 
 # Array of lists to crawl
@@ -79,7 +79,7 @@ with TaskManager(
             site,
             site_rank=index,
             callback=callback
-            # reset=True
+            reset=True
         )
 
         # Start by visiting the page
