@@ -14,17 +14,15 @@ from openwpm.storage.cloud_storage.s3_storage import S3StructuredProvider, S3Uns
 
 
 # The list of sites that we wish to crawl
-NUM_BROWSERS = 12
-df = pd.read_csv('top-1m-11-11-2016.csv', header = None)
+NUM_BROWSERS = 40
+#df = pd.read_csv('top-1m-11-11-2016.csv', header = None)
+df = pd.read_csv('2016_part1.csv', header = None)
+#df = pd.read_csv('2016_part2.csv', header = None)
 df.iloc[:,1] = 'http://' + df.iloc[:,1].astype(str)
 
 # Array of lists to crawl
 sites = df.values.ravel()
 no_sites = len(sites)
-
-#start display for headless crawl on EC2
-# display = Display(visible=0, size=(800, 600))
-# display.start()
 
 # Loads the default ManagerParams
 # and NUM_BROWSERS copies of the default BrowserParams
