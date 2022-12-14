@@ -18,7 +18,7 @@ NUM_BROWSERS = 160
 #df = pd.read_csv('top-1m-11-11-2016.csv', header = None)
 df = pd.read_csv('./sources/intersect.csv', header = None)
 #df = pd.read_csv('2016_part2.csv', header = None)
-df.iloc[:,1] = 'http://' + df.iloc[:,1].astype(str)
+df.iloc[:,0] = 'http://' + df.iloc[:,0].astype(str)
 
 # Array of lists to crawl
 sites = df.values.ravel()
