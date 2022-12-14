@@ -58,8 +58,8 @@ class BrowserManagerHandle:
         browser_params: BrowserParamsInternal,
     ) -> None:
         # Constants
-        self._SPAWN_TIMEOUT = 120  # seconds
-        self._UNSUCCESSFUL_SPAWN_LIMIT = 4
+        self._SPAWN_TIMEOUT =2400 # seconds (here: 20mins)
+        self._UNSUCCESSFUL_SPAWN_LIMIT = 6
 
         # manager parameters
         self.current_profile_path: Optional[Path] = None
