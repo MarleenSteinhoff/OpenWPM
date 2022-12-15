@@ -14,7 +14,7 @@ from openwpm.storage.cloud_storage.s3_storage import S3StructuredProvider, S3Uns
 
 
 # The list of sites that we wish to crawl
-NUM_BROWSERS = 160
+NUM_BROWSERS = 100
 #df = pd.read_csv('top-1m-11-11-2016.csv', header = None)
 df = pd.read_csv('./sources/intersect.csv', header = None)
 #df = pd.read_csv('2016_part2.csv', header = None)
@@ -27,7 +27,7 @@ no_sites = len(sites)
 # Loads the default ManagerParams
 # and NUM_BROWSERS copies of the default BrowserParams
 manager_params = ManagerParams(num_browsers=NUM_BROWSERS)
-browser_params = [BrowserParams(display_mode="headless") for _ in range(NUM_BROWSERS)]
+browser_params = [BrowserParams(display_mode="xvfb") for _ in range(NUM_BROWSERS)]
 
 # Update browser configuration (use this for per-browser settings)
 for browser_param in browser_params:
@@ -43,13 +43,13 @@ for browser_param in browser_params:
     browser_param.callstack_instrument = True
     # Record DNS resolution
     browser_param.dns_instrument = True
-    
-    browser_param.display_mode='headless'
+
+    #browser_param.display_mode='xvfb'
 
 
 # Update TaskManager configuration (use this for crawl-wide settings)
-manager_params.data_directory = Path("/home/mfuchs/openwpm/OpenWPM/data/")
-manager_params.log_path = Path("/home/mfuchs/openwpm/OpenWPM/data/openwpm.log")
+manager_params.data_directory = Path("./datadir/")
+manager_params.log_path = Path("./datadir/openwpm.log")
 
 
 # memory_watchdog and process_watchdog are useful for large scale cloud crawls.
@@ -62,7 +62,7 @@ manager_params.process_watchdog = True
 with TaskManager(
     manager_params,
     browser_params,
-    SQLiteStorageProvider(Path("/home/mfuchs/openwpm/OpenWPM/data/crawl-data.sqlite")),
+    SQLiteStorageProvider(Path("./datadir/crawl-data.sqlite")),
     None,
 ) as manager:
     # Visits the sites
