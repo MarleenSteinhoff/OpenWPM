@@ -38,6 +38,12 @@ echo 'Installing firefox.'
 echo 'Building extension.'
 ./scripts/build-extension.sh
 
+echo 'Installing additional packages'
+apt install xvfb
+apt-get install libgtk-3.0
+apt-get install libasound2 
+apt-get install libdbus-glib-1-2
+
 echo 'Installation complete, activate your new environment by running:'
 echo 'conda activate openwpm'
 
