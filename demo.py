@@ -1,4 +1,7 @@
 from pathlib import Path
+import pandas as pd
+import numpy as np
+from pathlib import Path
 
 from custom_command import LinkCountingCommand
 from openwpm.command_sequence import CommandSequence
@@ -8,19 +11,20 @@ from openwpm.storage.sql_provider import SQLiteStorageProvider
 from openwpm.task_manager import TaskManager
 
 # The list of sites that we wish to crawl
-NUM_BROWSERS = 1
-sites = [
-    "http://www.example.com",
-    "http://www.princeton.edu",
-    "http://citp.princeton.edu/",
-    
-]
+NUM_BROWSERS = 48
+
+df = pd.read_csv('./sources/intersect.csv', header = None)
+df.iloc[:,0] = 'http://' + df.iloc[:,0].astype(str)
+sites = df.values.ravel()
+no_sites = len(sites)
+print(sites)
+
 
 # Loads the default ManagerParams
 # and NUM_BROWSERS copies of the default BrowserParams
 
 manager_params = ManagerParams(num_browsers=NUM_BROWSERS)
-browser_params = [BrowserParams(display_mode="native") for _ in range(NUM_BROWSERS)]
+browser_params = [BrowserParams(display_mode="xvfb") for _ in range(NUM_BROWSERS)]
 
 # Update browser configuration (use this for per-browser settings)
 for browser_param in browser_params:

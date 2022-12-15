@@ -24,8 +24,8 @@ df.iloc[:,0] = 'http://' + df.iloc[:,0].astype(str)
 sites = df.values.ravel()
 no_sites = len(sites)
 
-# Loads the default ManagerParams
-# and NUM_BROWSERS copies of the default BrowserParams
+
+NUM_BROWSERS =100
 manager_params = ManagerParams(num_browsers=NUM_BROWSERS)
 browser_params = [BrowserParams(display_mode="xvfb") for _ in range(NUM_BROWSERS)]
 
@@ -44,18 +44,14 @@ for browser_param in browser_params:
     # Record DNS resolution
     browser_param.dns_instrument = True
 
-    #browser_param.display_mode='xvfb'
-
-
 # Update TaskManager configuration (use this for crawl-wide settings)
 manager_params.data_directory = Path("./datadir/")
 manager_params.log_path = Path("./datadir/openwpm.log")
 
-
 # memory_watchdog and process_watchdog are useful for large scale cloud crawls.
 # Please refer to docs/Configuration.md#platform-configuration-options for more information
-manager_params.memory_watchdog = True
-manager_params.process_watchdog = True
+# manager_params.memory_watchdog = True
+# manager_params.process_watchdog = True
 
 
 # Commands time out by default after 60 seconds
@@ -73,13 +69,11 @@ with TaskManager(
                 f"CommandSequence for {val} ran {'successfully' if success else 'unsuccessfully'}"
             )
 
-         
         # Parallelize sites over all number of browsers set above.
         command_sequence = CommandSequence(
             site,
             site_rank=index,
             callback=callback,
-            reset=True
         )
 
         # Start by visiting the page
@@ -89,3 +83,6 @@ with TaskManager(
 
         # Run commands across all browsers (simple parallelization)
         manager.execute_command_sequence(command_sequence)
+
+
+
