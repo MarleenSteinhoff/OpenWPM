@@ -29,7 +29,7 @@ ACTION_TYPE_FINALIZE = "Finalize"
 ACTION_TYPE_INITIALIZE = "Initialize"
 
 RECORD_TYPE_CREATE = "create_table"
-STATUS_TIMEOUT = 100000  # seconds
+STATUS_TIMEOUT = 10000  # seconds
 SHUTDOWN_SIGNAL = "SHUTDOWN"
 BATCH_COMMIT_TIMEOUT = 30  # commit a batch if no new records for N seconds
 
