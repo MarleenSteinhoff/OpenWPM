@@ -29,12 +29,12 @@ ACTION_TYPE_FINALIZE = "Finalize"
 ACTION_TYPE_INITIALIZE = "Initialize"
 
 RECORD_TYPE_CREATE = "create_table"
-STATUS_TIMEOUT = 240  # seconds | before: 120
+STATUS_TIMEOUT = 120  # seconds | before: 120
 SHUTDOWN_SIGNAL = "SHUTDOWN"
 BATCH_COMMIT_TIMEOUT = 30  # commit a batch if no new records for N seconds | 30
 
 
-STATUS_UPDATE_INTERVAL =10# seconds | before 5
+STATUS_UPDATE_INTERVAL =15 # seconds | before 51
 INVALID_VISIT_ID = VisitId(-1)
 
 
