@@ -11,7 +11,7 @@ from openwpm.storage.sql_provider import SQLiteStorageProvider
 from openwpm.task_manager import TaskManager
 
 # The list of sites that we wish to crawl
-NUM_BROWSERS = 48
+NUM_BROWSERS = 40
 
 df = pd.read_csv('./sources/intersect.csv', header = None)
 df.iloc[:,0] = 'http://' + df.iloc[:,0].astype(str)
@@ -47,9 +47,8 @@ manager_params.log_path = Path("./datadir/openwpm.log")
 
 # memory_watchdog and process_watchdog are useful for large scale cloud crawls.
 # Please refer to docs/Configuration.md#platform-configuration-options for more information
-# manager_params.memory_watchdog = True
-# manager_params.process_watchdog = True
-
+manager_params.memory_watchdog = True
+manager_params.process_watchdog = True
 
 # Commands time out by default after 60 seconds
 with TaskManager(
@@ -62,9 +61,8 @@ with TaskManager(
     for index, site in enumerate(sites):
 
         def callback(success: bool, val: str = site) -> None:
-            print(
-                f"CommandSequence for {val} ran {'successfully' if success else 'unsuccessfully'}"
-            )
+            print(f"CommandSequence for {val} ran {'successfully' if success else 'unsuccessfully'}")
+            print(f"URL {site} number {index} of {no_sites}")
 
         # Parallelize sites over all number of browsers set above.
         command_sequence = CommandSequence(
@@ -74,7 +72,7 @@ with TaskManager(
         )
 
         # Start by visiting the page
-        command_sequence.append_command(GetCommand(url=site, sleep=3), timeout=60)
+        command_sequence.append_command(GetCommand(url=site, sleep=5), timeout=60)
         # Have a look at custom_command.py to see how to implement your own command
         command_sequence.append_command(LinkCountingCommand())
 
