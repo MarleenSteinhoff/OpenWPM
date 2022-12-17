@@ -14,10 +14,13 @@ from openwpm.task_manager import TaskManager
 NUM_BROWSERS = 40
 
 df = pd.read_csv('./sources/intersect.csv', header = None)
+#only 1000 entries from dataset (stateful)
+#df = 'http://' + df.iloc[:1000,0].astype(str)
+# 1MIO entries from dataset (stateless)
 df.iloc[:,0] = 'http://' + df.iloc[:,0].astype(str)
+print(df)
 sites = df.values.ravel()
 no_sites = len(sites)
-print(sites)
 
 
 # Loads the default ManagerParams
@@ -69,7 +72,12 @@ with TaskManager(
             site,
             site_rank=index,
             callback=callback,
-        )
+            # for statefull
+            #reset = False,
+            # for stateless
+            reset = True,
+            )
+
 
         # Start by visiting the page
         command_sequence.append_command(GetCommand(url=site, sleep=5), timeout=60)
