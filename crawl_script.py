@@ -11,13 +11,14 @@ from openwpm.storage.sql_provider import SQLiteStorageProvider
 from openwpm.task_manager import TaskManager
 
 # The list of sites that we wish to crawl
-NUM_BROWSERS = 40
+NUM_BROWSERS = 50
 
-df = pd.read_csv('./sources/intersect.csv', header = None)
+df = pd.read_csv('top-1m.csv', header = None)
 #only 1000 entries from dataset (stateful)
-#df = 'http://' + df.iloc[:1000,0].astype(str)
+df = 'http://' + df.iloc[:1000,1].astype(str)
+#df = 'http://' + df.iloc[:10000,0].astype(str)
 # 1MIO entries from dataset (stateless)
-df.iloc[:,0] = 'http://' + df.iloc[:,0].astype(str)
+#df.iloc[:,0] = 'http://' + df.iloc[:,0].astype(str)
 print(df)
 sites = df.values.ravel()
 no_sites = len(sites)
@@ -73,9 +74,9 @@ with TaskManager(
             site_rank=index,
             callback=callback,
             # for statefull
-            #reset = False,
+            reset = False,
             # for stateless
-            reset = True,
+            #reset = True,
             )
 
 
